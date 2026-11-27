@@ -1,0 +1,2295 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ghost Protocol — Projet de jeu | Marlène Jedynak</title>
+
+    <meta name="description"
+        content="Ghost Protocol, projet fictif de FPS compétitif associant résolution tactique, e-sport, narration systémique et monde persistant.">
+
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* ========================================
+           GHOST PROTOCOL — COMPOSANTS SPÉCIFIQUES
+           ======================================== */
+
+        /* Quatre piliers de conception */
+
+        .gp-pillars {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin: 28px 0;
+        }
+
+        .gp-pillar {
+            border: 1px solid var(--line);
+            background: var(--white);
+            padding: 22px;
+        }
+
+        .gp-pillar h3 {
+            color: var(--teal);
+            font-size: 1.5rem;
+            margin: 0 0 12px;
+        }
+
+        .gp-pillar p {
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        /* Accordéons */
+
+        .gp-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 24px 0;
+        }
+
+        .gp-tools button {
+            border: 1px solid var(--line);
+            background: transparent;
+            color: var(--teal);
+            font-size: 11px;
+            padding: 7px 13px;
+        }
+
+        .gp-tools button:hover {
+            border-color: var(--teal);
+        }
+
+        .gp-details {
+            border-bottom: 1px solid var(--line);
+            margin: 12px 0;
+        }
+
+        .gp-details summary {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 17px 0;
+            cursor: pointer;
+        }
+
+        .gp-details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .gp-details summary strong {
+            font-family: var(--title);
+            font-size: 1.35rem;
+            font-weight: 500;
+            color: var(--blue);
+        }
+
+        .gp-toggle {
+            font-size: 11px;
+            color: var(--teal);
+            white-space: nowrap;
+        }
+
+        .gp-close {
+            display: none;
+        }
+
+        .gp-details[open] .gp-open {
+            display: none;
+        }
+
+        .gp-details[open] .gp-close {
+            display: inline;
+        }
+
+        .gp-body {
+            padding: 4px 0 22px;
+        }
+
+        .gp-body p {
+            font-size: 14px;
+        }
+
+        /* Composition e-sport */
+
+        .gp-roster {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin: 26px 0;
+        }
+
+        .gp-roster-card {
+            border: 1px solid var(--line);
+            background: var(--white);
+            text-align: center;
+            padding: 22px 15px;
+        }
+
+        .gp-roster-number {
+            display: block;
+            font-family: var(--title);
+            color: var(--teal);
+            font-size: 3rem;
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .gp-roster-card small {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .gp-roles {
+            margin: 20px 0;
+        }
+
+        .gp-role {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 15px;
+            border-bottom: 1px solid var(--line);
+            padding: 12px 0;
+            font-size: 13px;
+        }
+
+        .gp-role strong {
+            color: var(--teal);
+        }
+
+        /* Démonstration narrative */
+
+        .gp-mission {
+            border: 1px solid var(--line);
+            background: #ece9e3;
+            margin: 28px 0;
+            padding: 28px;
+        }
+
+        .gp-mission h3 {
+            margin: 12px 0 18px;
+        }
+
+        .gp-mission-track {
+            height: 3px;
+            background: var(--line);
+            margin: 22px 0;
+        }
+
+        .gp-mission-track span {
+            display: block;
+            height: 100%;
+            width: 20%;
+            background: var(--teal);
+            transition: width .2s ease;
+        }
+
+        .gp-mission-step {
+            background: var(--white);
+            border: 1px solid var(--line);
+            padding: 24px;
+        }
+
+        .gp-mission-step p {
+            font-size: 14px;
+        }
+
+        .gp-analysis {
+            border-left: 3px solid var(--teal);
+            background: var(--paper);
+            margin-top: 24px;
+            padding: 18px;
+        }
+
+        .gp-analysis p {
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        .gp-mission-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 22px;
+        }
+
+        .gp-mission-controls button:disabled {
+            opacity: .35;
+            cursor: default;
+        }
+
+        .gp-counter {
+            color: var(--muted);
+            font-size: 11px;
+            white-space: nowrap;
+        }
+
+        /* Schéma du monde persistant */
+
+        .gp-flow {
+            display: grid;
+            gap: 8px;
+            margin: 28px 0;
+        }
+
+        .gp-flow-item {
+            border: 1px solid var(--line);
+            background: var(--white);
+            text-align: center;
+            padding: 20px;
+        }
+
+        .gp-flow-item strong {
+            display: block;
+            font-family: var(--title);
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--blue);
+            margin-bottom: 6px;
+        }
+
+        .gp-flow-item span {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .gp-flow-arrow {
+            color: var(--gold);
+            font-size: 1.4rem;
+            text-align: center;
+        }
+
+        .gp-memory {
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            text-align: center;
+            padding: 30px 15px;
+            margin: 30px 0;
+        }
+
+        .gp-memory p {
+            max-width: none;
+            font-family: var(--title);
+            font-size: 1.5rem;
+            color: var(--blue);
+            line-height: 1.5;
+            margin: 15px 0 0;
+        }
+
+        /* Cartes de navigation */
+
+        .gp-project-links {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+            margin: 28px 0;
+        }
+
+        .gp-project-link {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            border: 1px solid var(--line);
+            background: var(--white);
+            color: var(--ink);
+            text-decoration: none;
+            padding: 24px;
+        }
+
+        .gp-project-link:hover {
+            border-color: var(--teal);
+            color: var(--ink);
+        }
+
+        .gp-project-link h3 {
+            margin: 0;
+        }
+
+        .gp-project-link p {
+            font-size: 13px;
+            flex: 1;
+        }
+
+        .gp-project-link .arrow {
+            font-size: 12px;
+            color: var(--teal);
+        }
+
+        /* Adaptation mobile */
+
+        @media (max-width: 620px) {
+
+            .gp-pillars,
+            .gp-project-links {
+                grid-template-columns: 1fr;
+            }
+
+            .gp-pillar {
+                padding: 20px;
+            }
+
+            .gp-details summary {
+                gap: 12px;
+            }
+
+            .gp-details summary strong {
+                font-size: 1.2rem;
+            }
+
+            .gp-mission {
+                padding: 16px;
+            }
+
+            .gp-mission-step {
+                padding: 18px;
+            }
+
+            .gp-mission-controls .button {
+                padding: 9px 10px;
+                font-size: 11px;
+            }
+
+            .gp-role {
+                grid-template-columns: 1fr 1.5fr;
+                gap: 10px;
+            }
+
+            .gp-memory p {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media print {
+
+            .gp-tools,
+            .gp-mission-controls,
+            .gp-mission-track,
+            .gp-toggle {
+                display: none !important;
+            }
+
+            .gp-mission-step[hidden] {
+                display: block !important;
+            }
+
+            .gp-mission-step {
+                margin-bottom: 15px;
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <a class="skip" href="#main-content">
+        Aller au contenu
+    </a>
+
+    <!-- ========================================
+         NAVIGATION PRINCIPALE
+         ======================================== -->
+
+    <header class="topbar">
+
+        <div class="topbar-inner">
+
+            <a class="brand" href="index.html">
+
+                <span class="brand-symbol" aria-hidden="true">
+                    M
+                </span>
+
+                <span>
+                    <strong>Marlène Jedynak</strong>
+                    <small>Narrative Design</small>
+                </span>
+
+            </a>
+
+            <nav class="desktop-nav"
+                aria-label="Navigation principale">
+
+                <a href="index.html">Accueil</a>
+
+                <a href="horey.html">Horey</a>
+
+                <a href="aetherfall.html">Aetherfall</a>
+
+                <a href="ghost-protocol-projet.html"
+                    aria-current="page">
+                    Ghost Protocol
+                </a>
+
+                <a href="etudes-de-cas.html">
+                    Études de cas
+                </a>
+
+                <a href="methode.html">Méthode</a>
+
+                <a href="documentation.html">
+                    Documentation
+                </a>
+
+            </nav>
+
+            <details class="mobile-nav">
+
+                <summary>Menu</summary>
+
+                <nav aria-label="Navigation mobile">
+
+                    <a href="index.html">Accueil</a>
+
+                    <a href="horey.html">Horey</a>
+
+                    <a href="aetherfall.html">Aetherfall</a>
+
+                    <a href="ghost-protocol-projet.html"
+                        aria-current="page">
+                        Ghost Protocol
+                    </a>
+
+                    <a href="etudes-de-cas.html">
+                        Études de cas
+                    </a>
+
+                    <a href="methode.html">Méthode</a>
+
+                    <a href="documentation.html">
+                        Documentation
+                    </a>
+
+                </nav>
+
+            </details>
+
+        </div>
+
+        <div class="progress" aria-hidden="true">
+            <span></span>
+        </div>
+
+    </header>
+
+    <!-- ========================================
+         CONTENU PRINCIPAL
+         ======================================== -->
+
+    <main class="shell" id="main-content">
+
+        <!-- EN-TÊTE -->
+
+        <header class="page-header">
+
+            <nav class="breadcrumbs"
+                aria-label="Fil d'Ariane">
+
+                <a href="index.html">Accueil</a>
+
+                <span aria-hidden="true">/</span>
+
+                <a href="horey.html">Horey</a>
+
+                <span aria-hidden="true">/</span>
+
+                <span>Ghost Protocol</span>
+
+            </nav>
+
+            <p class="eyebrow">
+                Projet de jeu fictif · Narrative Design
+            </p>
+
+            <h1>Ghost Protocol</h1>
+
+            <p class="lead">
+                FPS compétitif — Résolution tactique,
+                e-sport et monde persistant.
+            </p>
+
+        </header>
+
+        <div class="page-grid">
+
+            <article>
+
+                <!-- ========================================
+                     INTRODUCTION
+                     ======================================== -->
+
+                <figure class="visual">
+
+                    <button type="button"
+                        class="image-button"
+                        data-enlarge="Sheen City, 2237 — Illustration générée par IA."
+                        aria-label="Agrandir l'illustration de Sheen City">
+
+                        <img
+                            src="https://i.postimg.cc/TwstWtnp/Sheen-City-sans-notes.png"
+                            alt="Vue de Sheen City, mégapole maritime futuriste">
+
+                    </button>
+
+                    <figcaption>
+                        Sheen City, 2237 — Environnement principal
+                        de Ghost Protocol.
+                        Illustration générée par IA.
+                    </figcaption>
+
+                </figure>
+
+                <dl class="facts">
+
+                    <div>
+                        <dt>Genre</dt>
+                        <dd>FPS compétitif</dd>
+                    </div>
+
+                    <div>
+                        <dt>Univers</dt>
+                        <dd>Science-fiction</dd>
+                    </div>
+
+                    <div>
+                        <dt>Studio fictif</dt>
+                        <dd>Silver Oak Tree</dd>
+                    </div>
+
+                    <div>
+                        <dt>Conception</dt>
+                        <dd>Narrative Design</dd>
+                    </div>
+
+                    <div>
+                        <dt>Projet associé</dt>
+                        <dd>Horey</dd>
+                    </div>
+
+                    <div>
+                        <dt>Statut</dt>
+                        <dd>Concept en cours</dd>
+                    </div>
+
+                </dl>
+
+                <p>
+                    Ghost Protocol est un projet fictif de FPS
+                    compétitif dans lequel la maîtrise tactique,
+                    la coopération et les décisions des joueurs
+                    s'inscrivent dans un monde persistant traversé
+                    par des conflits politiques, économiques
+                    et territoriaux.
+                </p>
+
+                <p>
+                    Conçu dans le cadre du projet narratif Horey,
+                    il explore les interactions entre gameplay
+                    compétitif, narration systémique
+                    et agentivité du joueur.
+                </p>
+
+                <div class="actions">
+
+                    <a class="button"
+                        href="ghost-protocol.html">
+                        Découvrir l'univers →
+                    </a>
+
+                    <a class="button secondary"
+                        href="ghost-protocol-etude-de-cas.html">
+                        Lire l'étude de cas
+                    </a>
+
+                </div>
+
+                <div class="gp-tools"
+                    aria-label="Gestion des approfondissements">
+
+                    <button type="button" data-gp-all="open">
+                        Tout déplier +
+                    </button>
+
+                    <button type="button" data-gp-all="close">
+                        Tout replier −
+                    </button>
+
+                </div>
+
+                <!-- ========================================
+                     01 — LE CONCEPT
+                     ======================================== -->
+
+                <section class="content-section"
+                    id="concept" data-section>
+
+                    <div class="section-heading">
+
+                        <span class="number">01</span>
+
+                        <h2>Le concept du jeu</h2>
+
+                    </div>
+
+                    <p>
+                        En 2237, à Sheen City, les conséquences
+                        d'un ancien programme expérimental ont
+                        donné naissance à plusieurs générations
+                        de Ghost, dont les capacités et les
+                        contraintes diffèrent.
+                    </p>
+
+                    <p>
+                        Le joueur évolue au sein d'une société
+                        où gouvernement, corporations et
+                        organisations criminelles se disputent
+                        ressources, territoires et informations.
+                        Il peut rejoindre une organisation ou
+                        poursuivre une trajectoire indépendante.
+                    </p>
+
+                    <p>
+                        Les affrontements constituent une dimension
+                        essentielle du jeu, mais la réussite d'une
+                        mission dépend également de l'observation,
+                        de la coordination et de la compréhension
+                        des enjeux.
+                    </p>
+
+                    <div class="gp-pillars">
+
+                        <div class="gp-pillar">
+
+                            <p class="kicker">Pilier 01</p>
+
+                            <h3>Maîtrise</h3>
+
+                            <p>
+                                Exploiter ses compétences et ses
+                                ressources plutôt que dépendre
+                                uniquement de sa puissance.
+                            </p>
+
+                        </div>
+
+                        <div class="gp-pillar">
+
+                            <p class="kicker">Pilier 02</p>
+
+                            <h3>Agentivité</h3>
+
+                            <p>
+                                Prendre des décisions qui influencent
+                                les missions, les relations et
+                                certaines situations narratives.
+                            </p>
+
+                        </div>
+
+                        <div class="gp-pillar">
+
+                            <p class="kicker">Pilier 03</p>
+
+                            <h3>Persistance</h3>
+
+                            <p>
+                                Évoluer dans un monde qui conserve
+                                les traces des événements et des
+                                parcours individuels.
+                            </p>
+
+                        </div>
+
+                        <div class="gp-pillar">
+
+                            <p class="kicker">Pilier 04</p>
+
+                            <h3>Influence</h3>
+
+                            <p>
+                                Agir sur les rapports de force par
+                                le combat, l'information, la
+                                diplomatie ou les alliances.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <p class="principle">
+                        La victoire ne repose pas uniquement
+                        sur la puissance de feu, mais sur la
+                        capacité à comprendre une situation
+                        et à prendre la bonne décision.
+                    </p>
+
+                </section>
+
+                <!-- ========================================
+                     02 — EXPÉRIENCE TACTIQUE
+                     ======================================== -->
+
+                <section class="content-section"
+                    id="experience-tactique" data-section>
+
+                    <div class="section-heading">
+
+                        <span class="number">02</span>
+
+                        <h2>L'expérience tactique</h2>
+
+                    </div>
+
+                    <p>
+                        Le joueur dispose de plusieurs moyens
+                        pour résoudre une situation : ses armes,
+                        son environnement, les renseignements
+                        disponibles, ses coéquipiers et les
+                        capacités de son Ghost.
+                    </p>
+
+                    <p>
+                        Ces possibilités s'accompagnent de
+                        contraintes qui donnent une valeur
+                        stratégique à ses décisions.
+                    </p>
+
+                    <figure class="visual">
+
+                        <button type="button"
+                            class="image-button"
+                            data-enlarge="Les trois générations de Ghost — Illustration générée par IA."
+                            aria-label="Agrandir la comparaison des Ghost">
+
+                            <img
+                                src="https://i.postimg.cc/TP6MK3TR/GP-GHOST.png"
+                                alt="Comparaison des trois générations de Ghost : G1, G2 et G3"
+                                loading="lazy">
+
+                        </button>
+
+                        <figcaption>
+                            G1, G2 et G3 — Trois générations,
+                            trois rapports différents entre
+                            capacités et contraintes.
+                            Illustration générée par IA.
+                        </figcaption>
+
+                    </figure>
+
+                    <details class="gp-details">
+
+                        <summary>
+
+                            <strong>
+                                Les Ghost : une ressource tactique
+                            </strong>
+
+                            <span class="gp-toggle">
+
+                                <span class="gp-open">
+                                    Approfondir +
+                                </span>
+
+                                <span class="gp-close">
+                                    Replier −
+                                </span>
+
+                            </span>
+
+                        </summary>
+
+                        <div class="gp-body">
+
+                            <p>
+                                <strong>
+                                    G1 — Puissance et coût vital.
+                                </strong>
+                                Leur puissance brute s'accompagne
+                                d'une dépense d'énergie vitale
+                                que le joueur doit surveiller
+                                et gérer à l'aide des ressources
+                                disponibles.
+                            </p>
+
+                            <p>
+                                <strong>
+                                    G2 — Polyvalence et sélection.
+                                </strong>
+                                Leur double spécialisation,
+                                dominante et secondaire, introduit
+                                un temps de sélection. Leur Ghost
+                                peut être blessé ou détruit.
+                            </p>
+
+                            <p>
+                                <strong>
+                                    G3 — Spécialisation et réactivité.
+                                </strong>
+                                Leur spécialisation unique est
+                                optimisée. Le Ghost fonctionne
+                                comme une extension du porteur.
+                            </p>
+
+                            <p>
+                                Ces différences permettent
+                                d'explorer plusieurs formes
+                                de maîtrise sans réduire le
+                                choix du joueur à une simple
+                                hiérarchie de puissance.
+                            </p>
+
+                            <div class="actions">
+
+                                <a class="text-link"
+                                    href="ghost-protocol.html#les-ghost">
+
+                                    Approfondir les trois
+                                    générations de Ghost →
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </details>
+
+                    <details class="gp-details">
+
+                        <summary>
+
+                            <strong>Les anomalies rares</strong>
+
+                            <span class="gp-toggle">
+
+                                <span class="gp-open">
+                                    Approfondir +
+                                </span>
+
+                                <span class="gp-close">
+                                    Replier −
+                                </span>
+
+                            </span>
+
+                        </summary>
+
+                        <div class="gp-body">
+
+                            <p>
+                                La création d'un Ghost peut
+                                donner lieu à l'apparition
+                                aléatoire d'une anomalie rare.
+                                Celle-ci enrichit les possibilités
+                                tactiques sans remplacer sa
+                                spécialisation principale.
+                            </p>
+
+                            <p>
+                                Dans le récit-cadre Horey,
+                                Ichigo possède un G1 spécialisé
+                                dans l'empoisonnement et bénéficie
+                                d'une réserve de vingt secondes
+                                d'invisibilité.
+                            </p>
+
+                            <p>
+                                Cette capacité peut être utilisée
+                                partiellement. Le joueur doit
+                                gérer le temps disponible,
+                                anticiper sa récupération
+                                et choisir le moment opportun
+                                pour l'exploiter.
+                            </p>
+
+                            <p>
+                                L'intérêt de cette anomalie
+                                réside moins dans sa rareté
+                                que dans les stratégies qu'elle
+                                permet à un joueur expérimenté
+                                de construire.
+                            </p>
+
+                        </div>
+
+                    </details>
+
+                    <details class="gp-details">
+
+                        <summary>
+
+                            <strong>
+                                Observer, décider et coopérer
+                            </strong>
+
+                            <span class="gp-toggle">
+
+                                <span class="gp-open">
+                                    Approfondir +
+                                </span>
+
+                                <span class="gp-close">
+                                    Replier −
+                                </span>
+
+                            </span>
+
+                        </summary>
+
+                        <div class="gp-body">
+
+                            <p>
+                                La connaissance du terrain,
+                                la reconnaissance et les
+                                informations transmises par
+                                les coéquipiers permettent
+                                d'adapter une stratégie aux
+                                imprévus.
+                            </p>
+
+                            <p>
+                                Les spécialisations individuelles
+                                prennent une valeur collective
+                                lorsqu'elles sont mobilisées
+                                au service d'un objectif commun.
+                            </p>
+
+                            <p>
+                                La résolution d'une mission
+                                dépend ainsi de la coordination,
+                                de l'anticipation et de
+                                l'utilisation pertinente
+                                des ressources.
+                            </p>
+
+                        </div>
+
+                    </details>
+
+                    <p class="principle">
+                        La puissance d'un Ghost ne doit jamais
+                        remplacer la compétence du joueur.
+                    </p>
+
+                </section>
+
+                <!-- ========================================
+                     03 — DIMENSION E-SPORT
+                     ======================================== -->
+
+                <section class="content-section"
+                    id="esport" data-section>
+
+                    <div class="section-heading">
+
+                        <span class="number">03</span>
+
+                        <h2>La dimension e-sport</h2>
+
+                    </div>
+
+                    <p>
+                        Ghost Protocol intègre un écosystème
+                        compétitif dans lequel les performances
+                        individuelles, la coordination collective
+                        et l'encadrement professionnel occupent
+                        des fonctions complémentaires.
+                    </p>
+
+                    <div class="gp-roster">
+
+                        <div class="gp-roster-card">
+
+                            <span class="gp-roster-number">
+                                5
+                            </span>
+
+                            <small>Joueurs actifs</small>
+
+                        </div>
+
+                        <div class="gp-roster-card">
+
+                            <span class="gp-roster-number">
+                                5
+                            </span>
+
+                            <small>Remplaçants</small>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Onglets gérés par app.js -->
+
+                    <div data-tabs>
+
+                        <div class="tabs"
+                            role="tablist"
+                            aria-label="Organisation e-sport">
+
+                            <button type="button"
+                                role="tab"
+                                id="tab-equipe"
+                                aria-selected="true"
+                                aria-controls="panel-equipe">
+
+                                L'équipe
+
+                            </button>
+
+                            <button type="button"
+                                role="tab"
+                                id="tab-roles"
+                                aria-selected="false"
+                                aria-controls="panel-roles"
+                                tabindex="-1">
+
+                                Les rôles
+
+                            </button>
+
+                            <button type="button"
+                                role="tab"
+                                id="tab-staff"
+                                aria-selected="false"
+                                aria-controls="panel-staff"
+                                tabindex="-1">
+
+                                Le staff
+
+                            </button>
+
+                            <button type="button"
+                                role="tab"
+                                id="tab-progression"
+                                aria-selected="false"
+                                aria-controls="panel-progression"
+                                tabindex="-1">
+
+                                La progression
+
+                            </button>
+
+                        </div>
+
+                        <!-- ONGLET 1 -->
+
+                        <div class="panel"
+                            id="panel-equipe"
+                            role="tabpanel"
+                            aria-labelledby="tab-equipe"
+                            tabindex="0">
+
+                            <p class="kicker">
+                                Organisation compétitive
+                            </p>
+
+                            <h3>Une organisation collective</h3>
+
+                            <p>
+                                L'effectif principal d'une équipe
+                                professionnelle comprend dix
+                                joueurs, dont cinq évoluent
+                                simultanément sur le terrain.
+                            </p>
+
+                            <p>
+                                Le coordinateur, ou In-Game
+                                Leader (IGL), fait lui-même
+                                partie des cinq joueurs actifs.
+                            </p>
+
+                            <p>
+                                Il analyse les informations
+                                transmises par ses coéquipiers
+                                et adapte les décisions
+                                collectives à l'évolution
+                                de la situation.
+                            </p>
+
+                        </div>
+
+                        <!-- ONGLET 2 -->
+
+                        <div class="panel"
+                            id="panel-roles"
+                            role="tabpanel"
+                            aria-labelledby="tab-roles"
+                            tabindex="0"
+                            hidden>
+
+                            <p class="kicker">
+                                Exemple issu de Horey
+                            </p>
+
+                            <h3>Vesper01</h3>
+
+                            <p>
+                                Cette équipe semi-professionnelle
+                                illustre la complémentarité
+                                des profils au sein de
+                                Ghost Protocol.
+                            </p>
+
+                            <div class="gp-roles">
+
+                                <div class="gp-role">
+
+                                    <strong>Jugram</strong>
+
+                                    <span>
+                                        Coordinateur et stratège
+                                    </span>
+
+                                </div>
+
+                                <div class="gp-role">
+
+                                    <strong>Uryū</strong>
+
+                                    <span>
+                                        Gardien et second stratège
+                                    </span>
+
+                                </div>
+
+                                <div class="gp-role">
+
+                                    <strong>Ichigo</strong>
+
+                                    <span>Assaut / Flex</span>
+
+                                </div>
+
+                                <div class="gp-role">
+
+                                    <strong>Grimmjow</strong>
+
+                                    <span>Spectre</span>
+
+                                </div>
+
+                                <div class="gp-role">
+
+                                    <strong>Shinji</strong>
+
+                                    <span>Contrôleur</span>
+
+                                </div>
+
+                            </div>
+
+                            <p>
+                                Plusieurs stratèges peuvent
+                                appartenir à une même équipe.
+                                Le coordinateur conserve
+                                néanmoins la responsabilité
+                                des décisions tactiques
+                                pendant le match.
+                            </p>
+
+                        </div>
+
+                        <!-- ONGLET 3 -->
+
+                        <div class="panel"
+                            id="panel-staff"
+                            role="tabpanel"
+                            aria-labelledby="tab-staff"
+                            tabindex="0"
+                            hidden>
+
+                            <p class="kicker">
+                                Encadrement professionnel
+                            </p>
+
+                            <h3>Deux fonctions complémentaires</h3>
+
+                            <p>
+                                <strong>Le coach — Kensei.</strong>
+                                Il assure l'entraînement,
+                                la cohésion, la préparation
+                                tactique, l'évaluation des
+                                joueurs et leur rotation.
+                            </p>
+
+                            <p>
+                                <strong>L'analyste — Aizen.</strong>
+                                Il étudie les adversaires,
+                                les statistiques et les
+                                performances de l'équipe.
+                            </p>
+
+                            <p>
+                                Pendant le match, son temps
+                                de parole est limité à deux
+                                minutes au total.
+                            </p>
+
+                            <p>
+                                Cette contrainte l'oblige
+                                à sélectionner les informations
+                                déterminantes et le moment
+                                où elles doivent être transmises.
+                            </p>
+
+                            <p>
+                                Les joueurs conservent ainsi
+                                leur autonomie d'analyse
+                                et de décision.
+                            </p>
+
+                        </div>
+
+                        <!-- ONGLET 4 -->
+
+                        <div class="panel"
+                            id="panel-progression"
+                            role="tabpanel"
+                            aria-labelledby="tab-progression"
+                            tabindex="0"
+                            hidden>
+
+                            <p class="kicker">
+                                Formation et recrutement
+                            </p>
+
+                            <h3>Former la relève</h3>
+
+                            <p>
+                                Les organisations professionnelles
+                                disposent également d'une équipe B
+                                destinée à accompagner la
+                                progression de jeunes joueurs.
+                            </p>
+
+                            <p>
+                                Lors des matchs amicaux,
+                                ces derniers peuvent évoluer
+                                aux côtés de vétérans afin
+                                d'acquérir une expérience
+                                collective dans de véritables
+                                conditions de jeu.
+                            </p>
+
+                            <p>
+                                L'intégration directe dans
+                                l'équipe A reste possible
+                                lorsque les compétences
+                                d'un joueur le justifient.
+                            </p>
+
+                            <p>
+                                Dans Horey, le parcours d'Ichigo,
+                                connu sous le pseudonyme Fir3x,
+                                illustre cette possibilité :
+                                après cinq années de pratique,
+                                ses performances et sa maîtrise
+                                de son Ghost lui permettent
+                                d'intégrer directement
+                                l'effectif principal.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <p class="principle">
+                        La performance individuelle ne prend
+                        pleinement son sens que lorsqu'elle
+                        contribue à la réussite collective.
+                    </p>
+
+                </section>
+
+                <!-- ========================================
+                     04 — UNE MISSION EN SITUATION
+                     ======================================== -->
+
+                <section class="content-section"
+                    id="operation-banque" data-section>
+
+                    <div class="section-heading">
+
+                        <span class="number">04</span>
+
+                        <h2>Une mission en situation</h2>
+
+                    </div>
+
+                    <p>
+                        L'opération de la banque constitue
+                        un exemple issu du récit-cadre Horey.
+                        Elle illustre les interactions entre
+                        résolution tactique, information
+                        asymétrique et conséquences narratives.
+                    </p>
+
+                    <figure class="visual">
+
+                        <button type="button"
+                            class="image-button"
+                            data-enlarge="La banque et la boucherie — Illustration générée par IA."
+                            aria-label="Agrandir l'environnement de la mission">
+
+                            <img
+                                src="https://i.postimg.cc/FRvrXxYg/GP-BANQUE-ET-BOUCHERIE.png"
+                                alt="La banque et la boucherie à Sheen City"
+                                loading="lazy">
+
+                        </button>
+
+                        <figcaption>
+                            Environnement de la mission précédant
+                            le pré-event Laboratoire 17.
+                            Illustration générée par IA.
+                        </figcaption>
+
+                    </figure>
+
+                    <!-- DÉMONSTRATION INTERACTIVE -->
+
+                    <div class="gp-mission"
+                        id="gp-mission">
+
+                        <p class="kicker">
+                            Démonstration narrative interactive
+                        </p>
+
+                        <h3>L'opération de la banque</h3>
+
+                        <p>
+                            <strong>Objectif de Vesper01 :</strong>
+                            récupérer des documents gouvernementaux
+                            sans révéler l'implication de Vesper.
+                        </p>
+
+                        <p class="note">
+                            Parcourez les cinq étapes de la mission
+                            pour découvrir les principes de
+                            conception mobilisés.
+                        </p>
+
+                        <div class="gp-mission-track"
+                            aria-hidden="true">
+
+                            <span id="gp-mission-bar"></span>
+
+                        </div>
+
+                        <div id="gp-mission-content"
+                            aria-live="polite">
+
+                            <!-- ÉTAPE 1 -->
+
+                            <div class="gp-mission-step">
+
+                                <p class="kicker">
+                                    01 — Situation initiale
+                                </p>
+
+                                <h3>Des intérêts concurrents</h3>
+
+                                <p>
+                                    Vesper01 intervient sur le
+                                    territoire d'Obsidian.
+                                    Noctis mène également des
+                                    opérations dans le secteur,
+                                    tandis que le gouvernement
+                                    détient les documents
+                                    recherchés.
+                                </p>
+
+                                <p>
+                                    Les organisations ne
+                                    disposent pas des mêmes
+                                    renseignements ni des
+                                    mêmes objectifs.
+                                </p>
+
+                                <div class="gp-analysis">
+
+                                    <span class="kicker">
+                                        Principe de conception
+                                    </span>
+
+                                    <p>
+                                        L'asymétrie de
+                                        l'information crée
+                                        des situations différentes
+                                        pour les acteurs
+                                        d'une même mission.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <!-- ÉTAPE 2 -->
+
+                            <div class="gp-mission-step" hidden>
+
+                                <p class="kicker">
+                                    02 — Reconnaissance
+                                </p>
+
+                                <h3>Comprendre avant d'agir</h3>
+
+                                <p>
+                                    La reconnaissance effectuée
+                                    par Ichigo révèle la présence
+                                    de Noctis dans le secteur.
+                                    Jugram adapte la progression
+                                    de l'équipe aux nouvelles
+                                    informations.
+                                </p>
+
+                                <p>
+                                    La situation réelle diffère
+                                    de celle initialement
+                                    anticipée.
+                                </p>
+
+                                <div class="gp-analysis">
+
+                                    <span class="kicker">
+                                        Principe de conception
+                                    </span>
+
+                                    <p>
+                                        L'information recueillie
+                                        pendant une mission doit
+                                        pouvoir modifier les
+                                        décisions du joueur.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <!-- ÉTAPE 3 -->
+
+                            <div class="gp-mission-step" hidden>
+
+                                <p class="kicker">
+                                    03 — Adaptation
+                                </p>
+
+                                <h3>Une stratégie à reconstruire</h3>
+
+                                <p>
+                                    La découverte des agents
+                                    gouvernementaux introduit
+                                    une nouvelle contrainte.
+                                </p>
+
+                                <p>
+                                    Jugram doit tenir compte
+                                    des acteurs présents et
+                                    des capacités de ses
+                                    coéquipiers.
+                                </p>
+
+                                <p>
+                                    La stratégie collective
+                                    se construit à partir de
+                                    la situation observée,
+                                    et non d'un déroulement
+                                    entièrement prédéfini.
+                                </p>
+
+                                <div class="gp-analysis">
+
+                                    <span class="kicker">
+                                        Principe de conception
+                                    </span>
+
+                                    <p>
+                                        Les imprévus donnent
+                                        une valeur concrète
+                                        à l'analyse et à la
+                                        prise de décision.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <!-- ÉTAPE 4 -->
+
+                            <div class="gp-mission-step" hidden>
+
+                                <p class="kicker">
+                                    04 — Coordination
+                                </p>
+
+                                <h3>Des compétences complémentaires</h3>
+
+                                <p>
+                                    L'équipe mobilise les
+                                    spécialisations de ses
+                                    différents membres.
+                                </p>
+
+                                <p>
+                                    L'anomalie d'invisibilité
+                                    d'Ichigo constitue une
+                                    ressource parmi celles
+                                    dont dispose le coordinateur.
+                                </p>
+
+                                <p>
+                                    La récupération des
+                                    documents repose sur la
+                                    contribution de l'ensemble
+                                    de l'équipe.
+                                </p>
+
+                                <div class="gp-analysis">
+
+                                    <span class="kicker">
+                                        Principe de conception
+                                    </span>
+
+                                    <p>
+                                        Une capacité exceptionnelle
+                                        enrichit les possibilités
+                                        collectives sans rendre
+                                        les autres joueurs
+                                        superflus.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <!-- ÉTAPE 5 -->
+
+                            <div class="gp-mission-step" hidden>
+
+                                <p class="kicker">
+                                    05 — Conséquences
+                                </p>
+
+                                <h3>Au-delà de la réussite tactique</h3>
+
+                                <p>
+                                    L'opération laisse des
+                                    traces et attire l'attention
+                                    de plusieurs organisations.
+                                </p>
+
+                                <p>
+                                    Les informations dont elles
+                                    disposent déterminent les
+                                    enquêtes et les missions
+                                    proposées par leurs dirigeants.
+                                </p>
+
+                                <p>
+                                    Pour Vesper01, la récupération
+                                    des documents conduit à une
+                                    nouvelle quête qui déclenche
+                                    le pré-event Laboratoire 17.
+                                </p>
+
+                                <div class="gp-analysis">
+
+                                    <span class="kicker">
+                                        Principe de conception
+                                    </span>
+
+                                    <p>
+                                        La conclusion d'une
+                                        mission peut devenir
+                                        le point de départ
+                                        d'une progression
+                                        narrative impliquant
+                                        d'autres joueurs.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="gp-mission-controls">
+
+                            <button type="button"
+                                class="button secondary"
+                                id="gp-prev"
+                                disabled>
+
+                                ← Précédent
+
+                            </button>
+
+                            <span class="gp-counter"
+                                id="gp-counter">
+
+                                01 / 05
+
+                            </span>
+
+                            <button type="button"
+                                class="button"
+                                id="gp-next">
+
+                                Suivant →
+
+                            </button>
+
+                        </div>
+
+                        <noscript>
+
+                            <p class="note">
+                                Le déroulé interactif nécessite
+                                JavaScript.
+                            </p>
+
+                        </noscript>
+
+                    </div>
+
+                    <p class="principle">
+                        Une mission ne se résume pas à son
+                        objectif immédiat : elle peut également
+                        transformer les relations entre les
+                        acteurs et ouvrir de nouvelles
+                        possibilités narratives.
+                    </p>
+
+                </section>
+
+                <!-- ========================================
+                     05 — MONDE PERSISTANT
+                     ======================================== -->
+
+                <section class="content-section"
+                    id="monde-persistant" data-section>
+
+                    <div class="section-heading">
+
+                        <span class="number">05</span>
+
+                        <h2>Un monde qui évolue</h2>
+
+                    </div>
+
+                    <p>
+                        Ghost Protocol repose sur une
+                        continuité narrative commune à
+                        l'ensemble des serveurs, au sein
+                        de laquelle les joueurs peuvent
+                        vivre des expériences différentes.
+                    </p>
+
+                    <p>
+                        Les grandes étapes du scénario
+                        restent définies par Silver Oak Tree,
+                        tandis que les décisions, les alliances
+                        et les résultats des missions peuvent
+                        modifier les situations locales.
+                    </p>
+
+                    <!-- SCHÉMA -->
+
+                    <div class="gp-flow">
+
+                        <div class="gp-flow-item">
+
+                            <strong>Action des joueurs</strong>
+
+                            <span>
+                                Missions, découvertes et décisions
+                            </span>
+
+                        </div>
+
+                        <div class="gp-flow-arrow"
+                            aria-hidden="true">↓</div>
+
+                        <div class="gp-flow-item">
+
+                            <strong>Conséquences locales</strong>
+
+                            <span>
+                                Informations, affiliations
+                                et rapports de force propres
+                                à chaque serveur
+                            </span>
+
+                        </div>
+
+                        <div class="gp-flow-arrow"
+                            aria-hidden="true">↓</div>
+
+                        <div class="gp-flow-item">
+
+                            <strong>Convergence narrative</strong>
+
+                            <span>
+                                Progression majeure commune
+                                à tous les serveurs
+                            </span>
+
+                        </div>
+
+                        <div class="gp-flow-arrow"
+                            aria-hidden="true">↓</div>
+
+                        <div class="gp-flow-item">
+
+                            <strong>Mémoire du monde</strong>
+
+                            <span>
+                                Historique, reconnaissance
+                                et héritage communautaire
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <details class="gp-details">
+
+                        <summary>
+
+                            <strong>
+                                Des événements déclenchés
+                                par le gameplay
+                            </strong>
+
+                            <span class="gp-toggle">
+
+                                <span class="gp-open">
+                                    Approfondir +
+                                </span>
+
+                                <span class="gp-close">
+                                    Replier −
+                                </span>
+
+                            </span>
+
+                        </summary>
+
+                        <div class="gp-body">
+
+                            <p>
+                                Le pré-event Laboratoire 17
+                                illustre la possibilité de
+                                faire émerger un événement
+                                majeur à partir d'une mission
+                                accomplie par les joueurs.
+                            </p>
+
+                            <p>
+                                Les enquêtes concurrentes,
+                                les informations inégalement
+                                réparties et les confrontations
+                                entre factions permettent à
+                                plusieurs équipes de participer
+                                à une même progression narrative
+                                depuis des perspectives différentes.
+                            </p>
+
+                            <p>
+                                L'ouverture de Laboratoire 17
+                                reste commune à tous les serveurs,
+                                indépendamment des résultats
+                                locaux des missions.
+                            </p>
+
+                        </div>
+
+                    </details>
+
+                    <details class="gp-details">
+
+                        <summary>
+
+                            <strong>
+                                Les factions et l'écologie
+                                du pouvoir
+                            </strong>
+
+                            <span class="gp-toggle">
+
+                                <span class="gp-open">
+                                    Approfondir +
+                                </span>
+
+                                <span class="gp-close">
+                                    Replier −
+                                </span>
+
+                            </span>
+
+                        </summary>
+
+                        <div class="gp-body">
+
+                            <p>
+                                Les joueurs peuvent rejoindre
+                                une organisation, rester
+                                indépendants, négocier des
+                                accords, nouer des alliances
+                                ou modifier leur affiliation.
+                            </p>
+
+                            <p>
+                                La diplomatie, l'espionnage,
+                                la circulation de l'information
+                                et la réputation constituent
+                                autant de leviers d'influence
+                                complémentaires aux affrontements.
+                            </p>
+
+                            <p>
+                                Le système conserve la trace
+                                des engagements et de leurs
+                                conséquences sans décider
+                                à la place des joueurs.
+                            </p>
+
+                        </div>
+
+                    </details>
+
+                    <details class="gp-details">
+
+                        <summary>
+
+                            <strong>
+                                De l'expérience individuelle
+                                à la mémoire collective
+                            </strong>
+
+                            <span class="gp-toggle">
+
+                                <span class="gp-open">
+                                    Approfondir +
+                                </span>
+
+                                <span class="gp-close">
+                                    Replier −
+                                </span>
+
+                            </span>
+
+                        </summary>
+
+                        <div class="gp-body">
+
+                            <p>
+                                Chaque joueur dispose d'un
+                                historique personnel retraçant
+                                son parcours, ses affiliations,
+                                ses missions et ses découvertes.
+                            </p>
+
+                            <p>
+                                Certains événements peuvent
+                                également donner lieu à une
+                                reconnaissance communautaire :
+                                cinématiques officielles et
+                                badges commémoratifs.
+                            </p>
+
+                            <p>
+                                Ces récompenses mémorielles
+                                ne procurent pas d'avantage
+                                de gameplay. Elles permettent
+                                aux joueurs de conserver
+                                une trace de leur participation
+                                à l'histoire du jeu.
+                            </p>
+
+                        </div>
+
+                    </details>
+
+                    <div class="gp-memory">
+
+                        <span class="kicker">
+                            L'émotion recherchée
+                        </span>
+
+                        <p>« J'étais là. »</p>
+
+                        <p>
+                            « Lors d'un prochain événement,
+                            ce pourrait être mon équipe. »
+                        </p>
+
+                    </div>
+
+                    <p class="principle">
+                        Silver Oak Tree définit l'écologie
+                        du pouvoir ; les joueurs la font vivre.
+                    </p>
+
+                </section>
+
+                <!-- ========================================
+                     EXPLORER LE PROJET
+                     ======================================== -->
+
+                <section class="content-section"
+                    id="explorer" data-section>
+
+                    <p class="eyebrow">
+                        Pour aller plus loin
+                    </p>
+
+                    <h2>Explorer Ghost Protocol</h2>
+
+                    <p style="margin-top: 20px;">
+                        Deux livrables complémentaires permettent
+                        d'approfondir l'univers et les intentions
+                        de conception du projet.
+                    </p>
+
+                    <div class="gp-project-links">
+
+                        <a class="gp-project-link"
+                            href="ghost-protocol.html">
+
+                            <span class="kicker">
+                                Worldbuilding
+                            </span>
+
+                            <h3>L'univers</h3>
+
+                            <p>
+                                Sheen City, les trois générations
+                                de Ghost, les cartels, l'écologie
+                                du pouvoir et les origines
+                                du Laboratoire 17.
+                            </p>
+
+                            <span class="arrow">
+                                Découvrir l'univers →
+                            </span>
+
+                        </a>
+
+                        <a class="gp-project-link"
+                            href="ghost-protocol-etude-de-cas.html">
+
+                            <span class="kicker">
+                                Narrative Design
+                            </span>
+
+                            <h3>L'étude de cas</h3>
+
+                            <p>
+                                Résolution tactique, déclenchement
+                                narratif, monde persistant et
+                                mémoire communautaire : analyse
+                                des intentions de conception.
+                            </p>
+
+                            <span class="arrow">
+                                Lire l'étude de cas →
+                            </span>
+
+                        </a>
+
+                    </div>
+
+                </section>
+
+            </article>
+
+            <!-- ========================================
+                 SOMMAIRE LATÉRAL
+                 ======================================== -->
+
+            <aside class="toc">
+
+                <p>Sur cette page</p>
+
+                <nav aria-label="Sommaire">
+
+                    <ol>
+
+                        <li>
+                            <a href="#concept">
+                                01 — Le concept du jeu
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#experience-tactique">
+                                02 — L'expérience tactique
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#esport">
+                                03 — La dimension e-sport
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#operation-banque">
+                                04 — Une mission en situation
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#monde-persistant">
+                                05 — Un monde qui évolue
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#explorer">
+                                Explorer le projet
+                            </a>
+                        </li>
+
+                    </ol>
+
+                </nav>
+
+                <div class="back">
+
+                    <p>Ghost Protocol</p>
+
+                    <ol>
+
+                        <li>
+                            <a href="ghost-protocol.html">
+                                L'univers →
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="ghost-protocol-etude-de-cas.html">
+                                L'étude de cas →
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="horey.html">
+                                ← Retour à Horey
+                            </a>
+                        </li>
+
+                    </ol>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+        <!-- CONTINUATION -->
+
+        <div class="continuation">
+
+            <p>Continuer l'exploration</p>
+
+            <a href="ghost-protocol.html">
+                L'univers de Ghost Protocol →
+            </a>
+
+        </div>
+
+    </main>
+
+    <!-- ========================================
+         PIED DE PAGE
+         ======================================== -->
+
+    <footer class="site-footer">
+
+        <div class="footer-links">
+
+            <a href="https://lalanternedelombre.fr/"
+                target="_blank"
+                rel="noopener noreferrer">
+                Site
+            </a>
+
+            <span aria-hidden="true">·</span>
+
+            <a href="mailto:sylviewozny@gmx.fr">
+                E-mail
+            </a>
+
+            <span aria-hidden="true">·</span>
+
+            <a href="https://www.linkedin.com/in/sylvie-wozny-b9975b333/"
+                target="_blank"
+                rel="noopener noreferrer">
+                LinkedIn
+            </a>
+
+            <span aria-hidden="true">·</span>
+
+            <a href="https://marlenejedynak.github.io/"
+                target="_blank"
+                rel="noopener noreferrer">
+                GitHub
+            </a>
+
+        </div>
+
+        <p class="footer-copyright">
+            © <span id="current-year">2026</span> Marlène Jedynak
+        </p>
+
+        <a class="footer-credits" href="methode.html#credits">
+            Sources &amp; crédits visuels ↗
+        </a>
+
+    </footer>
+
+    <!-- ========================================
+         AGRANDISSEMENT DES ILLUSTRATIONS
+         Géré par app.js
+         ======================================== -->
+
+    <dialog class="lightbox"
+        id="image-dialog"
+        aria-label="Illustration agrandie">
+
+        <button type="button" class="close">
+            Fermer ×
+        </button>
+
+        <img alt="">
+
+        <p id="image-caption"></p>
+
+    </dialog>
+
+    <!-- SCRIPT COMMUN -->
+
+    <script src="app.js"></script>
+
+    <!-- ========================================
+         SCRIPT SPÉCIFIQUE À GHOST PROTOCOL
+         ======================================== -->
+
+    <script>
+        (() => {
+
+            'use strict';
+
+            /* Gestion globale des accordéons */
+
+            const details = Array.from(
+                document.querySelectorAll('.gp-details')
+            );
+
+            const accordionButtons = document.querySelectorAll(
+                '[data-gp-all]'
+            );
+
+            accordionButtons.forEach(button => {
+
+                button.addEventListener('click', () => {
+
+                    const shouldOpen =
+                        button.dataset.gpAll === 'open';
+
+                    details.forEach(detail => {
+                        detail.open = shouldOpen;
+                    });
+
+                });
+
+            });
+
+            /* Déroulé interactif de la mission */
+
+            const mission = document.getElementById('gp-mission');
+
+            if (!mission) return;
+
+            const steps = Array.from(
+                mission.querySelectorAll('.gp-mission-step')
+            );
+
+            const previous = document.getElementById('gp-prev');
+            const next = document.getElementById('gp-next');
+            const counter = document.getElementById('gp-counter');
+            const bar = document.getElementById('gp-mission-bar');
+
+            if (!steps.length || !previous || !next ||
+                !counter || !bar) return;
+
+            let currentStep = 0;
+
+            const formatNumber = number =>
+                String(number).padStart(2, '0');
+
+            const showStep = index => {
+
+                currentStep = Math.max(
+                    0,
+                    Math.min(index, steps.length - 1)
+                );
+
+                steps.forEach((step, i) => {
+                    step.hidden = i !== currentStep;
+                });
+
+                previous.disabled = currentStep === 0;
+
+                next.textContent =
+                    currentStep === steps.length - 1
+                        ? 'Recommencer ↻'
+                        : 'Suivant →';
+
+                counter.textContent =
+                    formatNumber(currentStep + 1)
+                    + ' / '
+                    + formatNumber(steps.length);
+
+                bar.style.width =
+                    ((currentStep + 1) / steps.length * 100)
+                    + '%';
+
+            };
+
+            previous.addEventListener('click', () => {
+                showStep(currentStep - 1);
+            });
+
+            next.addEventListener('click', () => {
+
+                if (currentStep === steps.length - 1) {
+                    showStep(0);
+                } else {
+                    showStep(currentStep + 1);
+                }
+
+            });
+
+            showStep(0);
+
+        })();
+    </script>
+
+</body>
+
+</html>

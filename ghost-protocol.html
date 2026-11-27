@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="index,follow">
+    <meta name="description" content="Ghost Protocol — Univers et worldbuilding.">
+    <meta name="color-scheme" content="light">
+
+    <title>Ghost Protocol · Univers — Portfolio Narrative Design</title>
+
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fonts.css">
+
+    <script defer src="app.js"></script>
+
+    <!-- STYLES COMPLÉMENTAIRES -->
+
+    <style>
+        .gp-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .gp-tools[hidden] {
+            display: none;
+        }
+
+        .gp-tools button,
+        .gp-details summary {
+            color: var(--teal);
+            font: inherit;
+            font-weight: 600;
+            background: transparent;
+            border: 1px solid var(--line);
+            padding: 9px 15px;
+            cursor: pointer;
+        }
+
+        .gp-details summary {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            list-style: none;
+        }
+
+        .gp-details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .gp-details summary::after {
+            content: '+';
+            font-size: 1.2em;
+        }
+
+        .gp-details[open] summary::after {
+            content: '−';
+        }
+
+        .gp-close,
+        .gp-details[open] .gp-open {
+            display: none;
+        }
+
+        .gp-details[open] .gp-close {
+            display: inline;
+        }
+
+        .gp-body {
+            padding-top: 24px;
+        }
+
+        .gp-figure {
+            margin: 28px 0;
+        }
+
+        .gp-figure img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        .gp-tools button:focus-visible,
+        .gp-details summary:focus-visible {
+            outline: 2px solid var(--teal);
+            outline-offset: 3px;
+        }
+
+        .gp-details .panel[hidden] {
+            display: none;
+        }
+
+        @media print {
+            .gp-tools,
+            .gp-details summary {
+                display: none;
+            }
+
+            .gp-details:not([open]) > .gp-body,
+            .gp-details .panel[hidden] {
+                display: block !important;
+            }
+        }
+    </style>
+
+    <noscript>
+        <style>
+            [role=tabpanel][hidden],
+            .gp-details .panel[hidden] {
+                display: block !important;
+            }
+
+            [role=tablist],
+            .simulation {
+                display: none !important;
+            }
+        </style>
+    </noscript>
+
+</head>
+
+<body>
+
+    <a class="skip" href="#main">Aller au contenu</a>
+
+    <!-- NAVIGATION PRINCIPALE -->
+
+    <header class="topbar">
+
+        <div class="topbar-inner">
+
+            <a class="brand" href="index.html"
+                aria-label="Marlène Jedynak, accueil du portfolio">
+
+                <span class="brand-symbol" aria-hidden="true">M</span>
+
+                <span>
+                    <strong>Marlène Jedynak</strong>
+                    <small>Narrative Design &amp; Writing</small>
+                </span>
+
+            </a>
+
+            <nav class="desktop-nav" aria-label="Navigation principale">
+
+                <a href="index.html">Accueil</a>
+                <a href="horey.html">Horey</a>
+                <a href="aetherfall.html">Aetherfall</a>
+                <a href="ghost-protocol-projet.html">Ghost Protocol</a>
+                <a href="etudes-de-cas.html">Études de cas</a>
+                <a href="methode.html">Méthode</a>
+                <a href="documentation.html">Documentation</a>
+
+            </nav>
+
+            <details class="mobile-nav">
+
+                <summary>Menu</summary>
+
+                <nav aria-label="Navigation mobile">
+
+                    <a href="index.html">Accueil</a>
+                    <a href="horey.html">Horey</a>
+                    <a href="aetherfall.html">Aetherfall</a>
+                    <a href="ghost-protocol-projet.html">Ghost Protocol</a>
+                    <a href="etudes-de-cas.html">Études de cas</a>
+                    <a href="methode.html">Méthode</a>
+                    <a href="documentation.html">Documentation</a>
+
+                </nav>
+
+            </details>
+
+
+
+        </div>
+
+        <div class="progress" aria-hidden="true">
+            <span></span>
+        </div>
+
+    </header>
+
+    <!-- CONTENU PRINCIPAL -->
+
+    <main class="shell" id="main">
+
+        <header class="page-header">
+
+            <nav class="breadcrumbs" aria-label="Fil d’Ariane">
+
+                <a href="index.html">Portfolio</a>
+                <span aria-hidden="true">/</span>
+                <a href="ghost-protocol-projet.html">Ghost Protocol</a>
+                <span aria-hidden="true">/</span>
+                <span aria-current="page">Univers</span>
+
+            </nav>
+
+            <p class="eyebrow">
+                FPS compétitif fictif · Worldbuilding
+            </p>
+
+            <h1>Ghost Protocol</h1>
+
+            <p class="lead">
+                FPS compétitif narratif — science-fiction, e-sport et monde persistant
+            </p>
+
+        </header>
+
+        <div class="page-grid">
+
+            <div class="content">
+
+                <!-- COMMANDES DE LECTURE -->
+
+                <div class="gp-tools" hidden>
+
+                    <button type="button" data-gp-all="open">
+                        Tout déplier
+                    </button>
+
+                    <button type="button" data-gp-all="close">
+                        Tout replier
+                    </button>
+
+                </div>
+
+                <!-- 01 — GHOST PROTOCOL -->
+
+                <section class="content-section" id="ghost-protocol" data-section>
+
+                    <div class="section-heading">
+
+                        <span class="number">01</span>
+
+                        <h2>Ghost Protocol</h2>
+
+                    </div>
+
+                    <p class="lead">
+                        Plusieurs décennies avant 2237, le gouvernement lance un programme expérimental destiné à créer une nouvelle génération de soldats.
+                    </p>
+
+                    <details class="gp-details">
+
+                        <summary>
+                            <span class="gp-open">Approfondir</span>
+                            <span class="gp-close">Replier</span>
+                        </summary>
+
+                        <div class="gp-body">
+
+                            <p>
+                                Le projet, baptisé Ghost Protocol, repose sur des modifications neurologiques pratiquées sur des sujets humains dans l'espoir de provoquer l'apparition d'entités capables de combattre à leurs côtés.
+                            </p>
+
+                            <p>
+                                Les résultats attendus n'apparaissent jamais. Après des années d'expérimentation, le programme est déclaré en échec et progressivement abandonné. Les anciens sujets quittent les laboratoires et tentent de reconstruire leur existence : certains fondent des familles, d'autres disparaissent dans les marges de la société ou rejoignent des organisations criminelles.
+                            </p>
+
+                            <p>
+                                Ce n'est que plusieurs années plus tard que les premiers Ghost apparaissent.
+                            </p>
+
+                            <p>
+                                L'échec du programme reposait sur un paradoxe : les chercheurs avaient cherché à contrôler toutes les variables de l'expérience tout en supprimant celle dont le protocole avait besoin pour aboutir. L'émergence d'un Ghost nécessitait un cerveau mature soumis durablement à des conditions d'adaptation, de survie et de stress que l'environnement contrôlé du laboratoire ne permettait pas de reproduire.
+                            </p>
+
+                            <p class="principle">
+                                Ghost Protocol n'avait pas échoué. Il avait été interrompu avant que ses effets puissent apparaître.
+                            </p>
+
+                            <p>
+                                Lorsque le gouvernement comprend ce qu'il a réellement créé, le phénomène lui échappe déjà. Les anciens sujets ont construit leur vie, leurs descendants existent, et les Ghost ne constituent plus seulement le résultat d'une expérience militaire : ils sont devenus une réalité biologique, sociale et politique.
+                            </p>
+
+                        </div>
+
+                    </details>
+
+                </section>
+
+                <!-- 02 — LES GHOST -->
+
+                <section class="content-section" id="les-ghost" data-section>
+
+                    <div class="section-heading">
+
+                        <span class="number">02</span>
+
+                        <h2>Les Ghost</h2>
+
+                    </div>
+
+                    <p class="lead">
+                        Les Ghost sont des entités semi-transparentes dotées d'une présence physique réelle.
+                    </p>
+
+                    <details class="gp-details">
+
+                        <summary>
+                            <span class="gp-open">Approfondir</span>
+                            <span class="gp-close">Replier</span>
+                        </summary>
+
+                        <div class="gp-body">
+
+                            <p>
+                                Liés à un porteur humain sans être physiquement rattachés à lui, ils peuvent agir sur leur environnement, combattre, protéger ou remplir des fonctions spécifiques selon leur spécialisation.
+                            </p>
+
+                            <p>
+                                Leur apparence est propre à chacun et demeure stable : humanoïde, animale, créature ou forme inspirée d'un combattant. D'une génération à l'autre, leur relation avec leur porteur évolue cependant profondément : puissance, coût biologique, stabilité et vitesse d'exécution ne répondent plus aux mêmes contraintes.
+                            </p>
+
+                            <!-- ILLUSTRATION DES TROIS GÉNÉRATIONS -->
+
+                            <figure class="visual gp-figure">
+
+                                <a href="https://i.postimg.cc/TP6MK3TR/GP-GHOST.png"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+
+                                    <img
+                                        src="https://i.postimg.cc/TP6MK3TR/GP-GHOST.png"
+                                        alt="Comparaison visuelle des trois générations de Ghost : G1, G2 et G3"
+                                        loading="lazy"
+                                        decoding="async">
+
+                                </a>
+
+                                <figcaption>
+
+                                    Les trois générations de Ghost — G1, G2 et G3.
+
+                                    <br>
+
+                                    <small>
+                                        Illustration générée par IA. ·
+                                        <a href="https://i.postimg.cc/TP6MK3TR/GP-GHOST.png"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
+                                            Agrandir ↗
+                                        </a>
+                                    </small>
+
+                                </figcaption>
+
+                            </figure>
+
+                            <!-- ONGLETS G1 / G2 / G3 -->
+
+                            <div data-tabs>
+
+                                <div class="tabs"
+                                    role="tablist"
+                                    aria-label="Générations de Ghost">
+
+                                    <button
+                                        type="button"
+                                        role="tab"
+                                        id="gp-tab-1"
+                                        aria-controls="gp-panel-1"
+                                        aria-selected="true"
+                                        tabindex="0">
+                                        G1
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        role="tab"
+                                        id="gp-tab-2"
+                                        aria-controls="gp-panel-2"
+                                        aria-selected="false"
+                                        tabindex="-1">
+                                        G2
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        role="tab"
+                                        id="gp-tab-3"
+                                        aria-controls="gp-panel-3"
+                                        aria-selected="false"
+                                        tabindex="-1">
+                                        G3
+                                    </button>
+
+                                </div>
+
+                                <!-- G1 -->
+
+                                <div class="panel"
+                                    role="tabpanel"
+                                    id="gp-panel-1"
+                                    aria-labelledby="gp-tab-1">
+
+                                    <h3>Première génération — G1</h3>
+
+                                    <p>
+                                        Chez les sujets issus directement de Ghost Protocol — la première génération (G1) — le Ghost reste imparfaitement stabilisé. Cette instabilité lui confère une puissance brute que les générations suivantes n'atteignent plus : lorsqu'il possède une spécialisation offensive, ses attaques peuvent être particulièrement violentes et destructrices.
+                                    </p>
+
+                                    <p>
+                                        Cette puissance se paie cependant directement sur le capital biologique de son porteur : son utilisation accélère son vieillissement et réduit progressivement son espérance de vie.
+                                    </p>
+
+                                </div>
+
+                                <!-- G2 -->
+
+                                <div class="panel"
+                                    role="tabpanel"
+                                    id="gp-panel-2"
+                                    aria-labelledby="gp-tab-2"
+                                    hidden>
+
+                                    <h3>Deuxième génération — G2</h3>
+
+                                    <p>
+                                        Avec la deuxième génération (G2), le phénomène devient héréditaire. Le Ghost apparaît naturellement dès l'enfance et sa relation avec son porteur est plus stable. Le coût biologique qui provoquait le vieillissement prématuré des G1 disparaît. Le Ghost peut en revanche être blessé, voire détruit.
+                                    </p>
+
+                                    <p>
+                                        Lorsqu'un enfant naît de deux parents porteurs, il peut hériter de leurs deux spécialisations. Celles-ci ne s'expriment cependant pas avec la même intensité : l'une devient dominante, l'autre secondaire, en fonction des aptitudes naturelles de l'enfant.
+                                    </p>
+
+                                    <p>
+                                        Cette polyvalence possède sa propre contrainte : le porteur doit sélectionner la capacité qu'il souhaite mobiliser, ce qui ralentit son exécution.
+                                    </p>
+
+                                </div>
+
+                                <!-- G3 -->
+
+                                <div class="panel"
+                                    role="tabpanel"
+                                    id="gp-panel-3"
+                                    aria-labelledby="gp-tab-3"
+                                    hidden>
+
+                                    <h3>Troisième génération — G3</h3>
+
+                                    <p>
+                                        Avec la troisième génération (G3), cette relation franchit une nouvelle étape. Le Ghost ne conserve plus qu'une seule spécialisation, mais celle-ci est plus stable, plus performante et moins énergivore.
+                                    </p>
+
+                                    <p>
+                                        Désormais matérialisé physiquement, il fonctionne comme une extension du cerveau et du corps de son porteur : l'intention et l'action ne nécessitent plus le même temps de sélection qu'avec un G2.
+                                    </p>
+
+                                    <p>
+                                        Le lien devient également indissociable. Le Ghost ne possède plus de mortalité propre : il existe aussi longtemps que son porteur et disparaît avec lui.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <h3>Visibilité</h3>
+
+                            <p>
+                                La visibilité constitue une autre variable du phénomène. La grande majorité des Ghost sont visibles, certains peuvent disparaître pendant quelques secondes, tandis qu'une infime minorité demeure totalement invisible.
+                            </p>
+
+                            <p class="principle">
+                                D'une génération à l'autre, Ghost Protocol n'a donc pas simplement produit un pouvoir transmissible : il a créé un phénomène capable de s'adapter biologiquement à ses propres conséquences.
+                            </p>
+
+                        </div>
+
+                    </details>
+
+                </section>
+
+                <!-- 03 — SHEEN CITY -->
+
+                <section class="content-section" id="sheen-city" data-section>
+
+                    <div class="section-heading">
+
+                        <span class="number">03</span>
+
+                        <h2>Sheen City</h2>
+
+                    </div>
+
+                    <p class="lead">
+                        Sheen City est une mégapole maritime historiquement développée autour d'un port majeur.
+                    </p>
+
+                    <details class="gp-details">
+
+                        <summary>
+                            <span class="gp-open">Approfondir</span>
+                            <span class="gp-close">Replier</span>
+                        </summary>
+
+                        <div class="gp-body">
+
+                            <!-- ILLUSTRATION SHEEN CITY -->
+
+                            <figure class="visual gp-figure">
+
+                                <a href="https://i.postimg.cc/TwstWtnp/Sheen-City-sans-notes.png"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+
+                                    <img
+                                        src="https://i.postimg.cc/TwstWtnp/Sheen-City-sans-notes.png"
+                                        alt="Vue aérienne de Sheen City, mégapole maritime construite autour de canaux et d'un grand port"
+                                        loading="lazy"
+                                        decoding="async">
+
+                                </a>
+
+                                <figcaption>
+
+                                    Sheen City — mégapole maritime en 2237.
+
+                                    <br>
+
+                                    <small>
+                                        Illustration générée par IA. ·
+                                        <a href="https://i.postimg.cc/TwstWtnp/Sheen-City-sans-notes.png"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
+                                            Agrandir ↗
+                                        </a>
+                                    </small>
+
+                                </figcaption>
+
+                            </figure>
+
+                            <p>
+                                Centre économique et logistique, celui-ci concentre une partie des échanges internationaux et des flux de marchandises. Cette position stratégique jouera également un rôle dans l'histoire clandestine de la ville : plusieurs décennies plus tard, elle fera de Sheen City un emplacement privilégié pour certaines infrastructures liées au programme Ghost Protocol.
+                            </p>
+
+                            <p>
+                                La ville présente deux visages. Dans ses quartiers centraux se concentrent les institutions politiques, les banques, les médias et les sièges des grandes corporations. Les secteurs résidentiels les plus favorisés prolongent cette vitrine d'une ville moderne, prospère et fortement technologique.
+                            </p>
+
+                            <p>
+                                À mesure que l'on s'en éloigne apparaissent cependant des territoires progressivement délaissés par les institutions. Dans ces quartiers oubliés, l'intervention des forces publiques est devenue rare et les cartels ont développé leurs propres zones d'influence.
+                            </p>
+
+                            <p>
+                                Une partie des Ghost y trouve refuge, qu'ils vivent en familles, en communautés, au sein de gangs ou comme mercenaires.
+                            </p>
+
+                            <p>
+                                Sous la ville visible s'étend enfin un autre réseau : anciens locaux abandonnés, caches, marchés clandestins, laboratoires et infrastructures souterraines forment une géographie parallèle où circulent personnes, informations et ressources hors du contrôle officiel.
+                            </p>
+
+                            <p class="principle">
+                                Le nom même de Sheen City, associé à l'éclat et aux reflets de ses lumières, résume ainsi son paradoxe : plus la ville paraît brillante en surface, plus elle dissimule ce qui permet à cette façade de tenir.
+                            </p>
+
+                        </div>
+
+                    </details>
+
+                </section>
+
+                <!-- 04 — ÉCOLOGIE DU POUVOIR -->
+
+                <section class="content-section" id="ecologie-du-pouvoir" data-section>
+
+                    <div class="section-heading">
+
+                        <span class="number">04</span>
+
+                        <h2>Une écologie du pouvoir</h2>
+
+                    </div>
+
+                    <p class="lead">
+                        À Sheen City, le pouvoir ne repose pas entre les mains d'une seule institution.
+                    </p>
+
+                    <details class="gp-details">
+
+                        <summary>
+                            <span class="gp-open">Approfondir</span>
+                            <span class="gp-close">Replier</span>
+                        </summary>
+
+                        <div class="gp-body">
+
+                            <p>
+                                Il circule entre plusieurs acteurs dont les intérêts se croisent : appareil politique, justice, armée, médias, corporations, banques, mafias, Ghost et citoyens.
+                            </p>
+
+                            <p>
+                                Le gouvernement conserve le pouvoir officiel. Il légifère, finance des programmes, mobilise ses forces de sécurité et cherche à contrôler les conséquences du projet Ghost Protocol.
+                            </p>
+
+                            <p>
+                                Mais son action dépend également d'acteurs privés : corporations pharmaceutiques, militaires ou technologiques, établissements financiers et fonds capables de faire circuler les ressources nécessaires aux programmes officiels comme clandestins.
+                            </p>
+
+                            <p>
+                                Les mafias ne vivent pas totalement en marge de ce système. Elles peuvent servir d'intermédiaires là où les institutions ou les corporations ne peuvent agir ouvertement : financement de laboratoires clandestins, circulation de substances et de matériel, recrutement de spécialistes ou exploitation des Ghost.
+                            </p>
+
+                            <p>
+                                Certaines relations reposent sur la corruption, d'autres sur des intérêts momentanément communs ou sur une simple volonté de fermer les yeux.
+                            </p>
+
+                            <p>
+                                Les Ghost occupent une position particulière dans cet équilibre. Recherchés pour leurs capacités, ils peuvent devenir soldats, sujets d'étude, mercenaires, membres d'un cartel ou simplement tenter d'échapper à l'ensemble de ces structures.
+                            </p>
+
+                            <p>
+                                Leur existence alimente ainsi le système tout en menaçant constamment de le déstabiliser.
+                            </p>
+
+                            <p>
+                                La population elle-même ne partage pas une connaissance commune des Ghost. Dans la ville officielle, la majorité des citoyens ignore leur existence, tandis que certaines élites et professions exposées au phénomène disposent d'informations que les institutions cherchent à contenir.
+                            </p>
+
+                            <p>
+                                Les médias établis participent à ce silence, alors que quelques publications indépendantes, journaux à sensation ou voix isolées sur les réseaux entretiennent des récits difficiles à distinguer des rumeurs.
+                            </p>
+
+                            <p>
+                                Dans les quartiers populaires et les zones délaissées, la situation est différente. Les Ghost font partie d'une réalité connue mais rarement nommée. Leur existence relève moins du secret que d'un silence collectif : ceux qui savent ont souvent davantage intérêt à se taire qu'à convaincre ceux qui ignorent.
+                            </p>
+
+                            <p class="principle">
+                                Chaque acteur possède donc du pouvoir, mais aucun ne fonctionne seul.
+                            </p>
+
+                            <p>
+                                Le gouvernement dépend des structures qu'il contrôle imparfaitement ; les corporations utilisent des réseaux qu'elles ne peuvent reconnaître publiquement ; les mafias exploitent les ressources du système officiel ; et les Ghost tentent de survivre au milieu d'organisations qui voient en eux une ressource, une menace ou une opportunité.
+                            </p>
+
+                        </div>
+
+                    </details>
+
+                </section>
+
+                <!-- 05 — LES CARTELS -->
+
+                <section class="content-section" id="les-cartels" data-section>
+
+                    <div class="section-heading">
+
+                        <span class="number">05</span>
+
+                        <h2>Les cartels</h2>
+
+                    </div>
+
+                    <p class="lead">
+                        Dans les zones où l'autorité officielle s'efface, plusieurs cartels se partagent le territoire de Sheen City.
+                    </p>
+
+                    <details class="gp-details">
+
+                        <summary>
+                            <span class="gp-open">Approfondir</span>
+                            <span class="gp-close">Replier</span>
+                        </summary>
+
+                        <div class="gp-body">
+
+                            <p>
+                                Leur influence dépasse cependant largement les quartiers qu'ils contrôlent : leurs réseaux traversent l'économie légale, les marchés clandestins et certaines institutions avec lesquelles ils entretiennent des relations plus ou moins directes.
+                            </p>
+
+                            <p>
+                                Chaque cartel possède ses propres territoires, ressources et spécialités. Leurs intérêts peuvent entrer en concurrence, mais aucun ne peut durablement ignorer les autres.
+                            </p>
+
+                            <p>
+                                Les cinq principales organisations — Vesper, Noctis, Velkan, Kestrel et Obsidian — se réunissent ainsi autour de la Table des Cinq, un conseil destiné à maintenir l'équilibre entre les grandes organisations criminelles de la ville.
+                            </p>
+
+                            <p>
+                                Il ne supprime ni les rivalités ni les conflits : il leur donne un cadre dans lequel négocier avant qu'ils ne menacent l'ensemble du système.
+                            </p>
+
+                            <p>
+                                L'apparition des Ghost a profondément modifié cet équilibre. Certains cartels les recrutent comme combattants ou mercenaires ; d'autres financent les spécialistes capables d'étudier leur fonctionnement, développent des laboratoires clandestins ou organisent la circulation de catalyseurs, stabilisateurs et amplificateurs destinés à modifier leurs capacités.
+                            </p>
+
+                            <p>
+                                Les Ghost ne sont cependant pas de simples ressources. Ils peuvent appartenir à une organisation, négocier leur protection, former leurs propres réseaux ou chercher à rester hors de portée des cartels.
+                            </p>
+
+                            <p>
+                                Leur présence introduit ainsi une nouvelle variable dans des rapports de force déjà instables.
+                            </p>
+
+                            <p class="principle">
+                                Les cartels ne constituent donc pas un pouvoir parallèle séparé du reste de la ville : ils sont l'une des structures par lesquelles son pouvoir circule.
+                            </p>
+
+                        </div>
+
+                    </details>
+
+                </section>
+
+                <!-- 06 — LABORATOIRE 17 -->
+
+                <section class="content-section" id="laboratoire-17" data-section>
+
+                    <div class="section-heading">
+
+                        <span class="number">06</span>
+
+                        <h2>Laboratoire 17</h2>
+
+                    </div>
+
+                    <p class="lead">
+                        Le Laboratoire 17 est l'une des anciennes infrastructures du programme Ghost Protocol implantées sur le territoire américain.
+                    </p>
+
+                    <details class="gp-details">
+
+                        <summary>
+                            <span class="gp-open">Approfondir</span>
+                            <span class="gp-close">Replier</span>
+                        </summary>
+
+                        <div class="gp-body">
+
+                            <p>
+                                Installé à Sheen City en 2020, il bénéficie alors de la position stratégique de la ville, de son important port maritime et d'un secteur placé sous contrôle militaire.
+                            </p>
+
+                            <p>
+                                Pendant plus d'un siècle, le laboratoire participe aux recherches menées sur les premiers sujets du programme. Lorsque Ghost Protocol perd ses financements, le réseau national se désagrège progressivement.
+                            </p>
+
+                            <p>
+                                Certains laboratoires sont détruits, d'autres abandonnés ; les scientifiques sont réaffectés, dispersés ou, pour certains, éliminés.
+                            </p>
+
+                            <p>
+                                Le Laboratoire 17 connaît une disparition plus progressive. Une partie de son personnel quitte les lieux avec l'arrêt des financements, tandis que quelques activités se maintiennent grâce à des arrangements locaux avec la ville et les militaires.
+                            </p>
+
+                            <p>
+                                Cette survie prend brutalement fin lorsqu'un conflit éclate dans le secteur. Une partie des installations de façade est détruite et les derniers occupants abandonnent le site dans l'urgence.
+                            </p>
+
+                            <!-- ILLUSTRATION BANQUE ET BOUCHERIE -->
+
+                            <figure class="visual gp-figure">
+
+                                <a href="https://i.postimg.cc/FRvrXxYg/GP-BANQUE-ET-BOUCHERIE.png"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+
+                                    <img
+                                        src="https://i.postimg.cc/FRvrXxYg/GP-BANQUE-ET-BOUCHERIE.png"
+                                        alt="Quartier délabré de Sheen City avec les ruines d'une ancienne banque et une petite boucherie à proximité"
+                                        loading="lazy"
+                                        decoding="async">
+
+                                </a>
+
+                                <figcaption>
+
+                                    Un secteur oublié de Sheen City — les ruines de l'ancienne banque et la boucherie voisine.
+
+                                    <br>
+
+                                    <small>
+                                        Illustration générée par IA. ·
+                                        <a href="https://i.postimg.cc/FRvrXxYg/GP-BANQUE-ET-BOUCHERIE.png"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
+                                            Agrandir ↗
+                                        </a>
+                                    </small>
+
+                                </figcaption>
+
+                            </figure>
+
+                            <p>
+                                Avec le retrait des militaires, le quartier se dégrade progressivement. Délaissé par les institutions, il devient précisément le type de territoire recherché par les cartels pour dissimuler leurs véritables centres opérationnels. Obsidian finit par y établir son quartier général.
+                            </p>
+
+                            <p>
+                                Pourtant, le cartel ignore qu'à proximité subsiste toujours le Laboratoire 17.
+                            </p>
+
+                            <p>
+                                En 2237, le site constitue ainsi une strate oubliée de Sheen City : vestige d'un programme gouvernemental disparu, enfoui au cœur d'un territoire qui a changé de mains sans jamais révéler ce qu'il contenait.
+                            </p>
+
+                            <p class="principle">
+                                Le Laboratoire 17 n'est donc pas seulement un lieu abandonné : il est une partie du passé de Ghost Protocol que la ville a littéralement recouverte.
+                            </p>
+
+                        </div>
+
+                    </details>
+
+                </section>
+
+                <!-- 07 — CLANDESTINITÉ ET INTÉGRATION -->
+
+                <section class="content-section" id="clandestinite-integration" data-section>
+
+                    <div class="section-heading">
+
+                        <span class="number">07</span>
+
+                        <h2>De la clandestinité à l'intégration</h2>
+
+                    </div>
+
+                    <p class="lead">
+                        L'apparition des premiers Ghost ne transforme pas immédiatement la société.
+                    </p>
+
+                    <details class="gp-details">
+
+                        <summary>
+                            <span class="gp-open">Approfondir</span>
+                            <span class="gp-close">Replier</span>
+                        </summary>
+
+                        <div class="gp-body">
+
+                            <p>
+                                Après l'abandon du programme Ghost Protocol, il faut au minimum une dizaine d'années avant que les premiers sujets expérimentaux — les G1 — voient leur Ghost se manifester.
+                            </p>
+
+                            <p>
+                                Beaucoup vivent alors dans la précarité. Les premières manifestations provoquent des incidents et attirent progressivement l'attention de la police, des militaires, des cartels, des journalistes et du pouvoir politique.
+                            </p>
+
+                            <p>
+                                Lorsque les capacités des G1 deviennent un enjeu, une véritable course s'engage pour les retrouver, les étudier, les recruter ou les exploiter.
+                            </p>
+
+                            <p>
+                                La plupart apprennent alors à se cacher. Certains se regroupent et forment des communautés dans lesquelles ils peuvent vivre à l'abri des regards.
+                            </p>
+
+                            <p>
+                                Les cartels deviennent également une voie de survie importante : une grande partie des G1 est recrutée par les organisations criminelles, qui leur offrent protection, ressources et une place dans leurs réseaux en échange de leurs capacités.
+                            </p>
+
+                            <p>
+                                Ces rapprochements favorisent également les unions entre porteurs, mais les relations avec des non-porteurs demeurent possibles lorsqu'une confiance suffisante permet de révéler leur véritable nature.
+                            </p>
+
+                            <p>
+                                Leurs enfants grandissent dans un contexte différent. Ils ne connaissent ni l'expérimentation ni la découverte brutale qui ont marqué leurs parents.
+                            </p>
+
+                            <p>
+                                Élevés au sein de communautés fermées ou protégés des regards extérieurs, ils apprennent très tôt à dissimuler leur identité et sont entraînés par leurs parents à survivre dans un monde qui pourrait encore chercher à les exploiter. Vers quinze à dix-sept ans, beaucoup commencent à tracer leur propre route tout en conservant des liens avec leur communauté d'origine.
+                            </p>
+
+                            <p>
+                                Les G2 franchissent progressivement une nouvelle étape. Beaucoup choisissent une existence professionnelle extérieure aux réseaux criminels, principalement dans les milieux populaires : ouvriers, manœuvres, éboueurs ou employés de commerces.
+                            </p>
+
+                            <p>
+                                Certains deviennent commerçants, chauffeurs ou routiers. Une partie demeure cependant liée aux cartels dans lesquels leurs parents avaient trouvé refuge ou travail. La séparation entre communautés Ghost, société ordinaire et réseaux criminels n'est donc jamais complète.
+                            </p>
+
+                            <p>
+                                Avec les G3, cette frontière s'efface davantage. Ils peuvent évoluer parmi les citoyens ordinaires sans que leur nature constitue nécessairement le centre de leur existence.
+                            </p>
+
+                            <p>
+                                Mais ils héritent aussi des réseaux construits par les générations précédentes : par capillarité familiale et communautaire, certains restent proches des milieux mafieux alors même qu'ils sont beaucoup mieux intégrés à la société.
+                            </p>
+
+                            <p>
+                                En quelques générations, les Ghost sont ainsi passés d'une population expérimentale traquée à une population capable de vivre au cœur même de la société qui avait autrefois cherché à la contrôler.
+                            </p>
+
+                            <p>
+                                Cette intégration n'efface cependant pas les réseaux nés de la clandestinité : elle leur permet aussi de s'étendre au-delà de leurs milieux d'origine.
+                            </p>
+
+                            <p class="principle">
+                                Leur évolution n'est donc pas seulement biologique : chaque génération transforme également la manière dont les Ghost trouvent leur place dans le monde.
+                            </p>
+
+                        </div>
+
+                    </details>
+
+                </section>
+
+            </div>
+
+            <!-- SOMMAIRE LATÉRAL -->
+
+            <aside class="toc" aria-label="Sommaire de la page">
+
+                <p>Dans cette page</p>
+
+                <ol>
+
+                    <li>
+                        <a href="#ghost-protocol">
+                            1 · Ghost Protocol
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#les-ghost">
+                            2 · Les Ghost
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#sheen-city">
+                            3 · Sheen City
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#ecologie-du-pouvoir">
+                            4 · Une écologie du pouvoir
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#les-cartels">
+                            5 · Les cartels
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#laboratoire-17">
+                            6 · Laboratoire 17
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#clandestinite-integration">
+                            7 · De la clandestinité à l'intégration
+                        </a>
+                    </li>
+
+                </ol>
+
+                <a class="back" href="ghost-protocol-projet.html">
+                    ← Retour au projet de jeu
+                </a>
+
+                <a class="back" href="ghost-protocol-etude-de-cas.html">
+                    Lire l’étude de cas →
+                </a>
+
+                <a class="back" href="index.html">
+                    ← Retour au portfolio
+                </a>
+
+            </aside>
+
+        </div>
+
+    </main>
+
+    <!-- PIED DE PAGE -->
+
+    <footer class="site-footer">
+
+        <div class="footer-links">
+
+            <a href="https://lalanternedelombre.fr/"
+                target="_blank"
+                rel="noopener noreferrer">
+                Site
+            </a>
+
+            <span aria-hidden="true">·</span>
+
+            <a href="mailto:sylviewozny@gmx.fr">
+                E-mail
+            </a>
+
+            <span aria-hidden="true">·</span>
+
+            <a href="https://www.linkedin.com/in/sylvie-wozny-b9975b333/"
+                target="_blank"
+                rel="noopener noreferrer">
+                LinkedIn
+            </a>
+
+            <span aria-hidden="true">·</span>
+
+            <a href="https://marlenejedynak.github.io/"
+                target="_blank"
+                rel="noopener noreferrer">
+                GitHub
+            </a>
+
+        </div>
+
+        <p class="footer-copyright">
+            © <span id="current-year">2026</span> Marlène Jedynak
+        </p>
+
+        <a class="footer-credits" href="methode.html#credits">
+            Sources &amp; crédits visuels ↗
+        </a>
+
+    </footer>
+
+    <!-- JAVASCRIPT : GESTION DES ACCORDÉONS -->
+
+    <script>
+        (() => {
+
+            const sections = [
+                ...document.querySelectorAll('.gp-details')
+            ];
+
+            // Afficher les commandes de lecture
+
+            document.querySelector('.gp-tools').hidden = false;
+
+            // Tout déplier / Tout replier
+
+            document.querySelectorAll('[data-gp-all]').forEach(button => {
+
+                button.addEventListener('click', () => {
+
+                    sections.forEach(details => {
+
+                        details.open = button.dataset.gpAll === 'open';
+
+                    });
+
+                });
+
+            });
+
+            // Ouvrir automatiquement une section depuis le sommaire
+
+            const reveal = hash => {
+
+                const target = document.getElementById(hash.slice(1));
+
+                const details = target?.querySelector('.gp-details');
+
+                if (details) {
+                    details.open = true;
+                }
+
+            };
+
+            document.querySelectorAll('.toc a[href^="#"]').forEach(link => {
+
+                link.addEventListener('click', () => {
+
+                    reveal(link.hash);
+
+                });
+
+            });
+
+            // Gérer les liens directs vers une section
+
+            addEventListener('hashchange', () => {
+
+                reveal(location.hash);
+
+            });
+
+            reveal(location.hash);
+
+            // Actualiser les composants liés au défilement
+
+            sections.forEach(details => {
+
+                details.addEventListener('toggle', () => {
+
+                    requestAnimationFrame(() => {
+
+                        dispatchEvent(new Event('resize'));
+
+                    });
+
+                });
+
+            });
+
+        })();
+    </script>
+
+</body>
+
+</html>

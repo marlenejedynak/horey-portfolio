@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index,follow">
+<meta name="description" content="Méthode de travail de Marlène Jedynak : processus de conception non linéaire et production de livrables structurés.">
+<title>Méthode de travail — Portfolio Narrative Design</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="fonts.css">
+<script defer src="app.js"></script>
+<style>
+.workflow { --wf-border:#D8CFC4; --wf-muted:#5C5053; --wf-accent:#0D7C84; text-align:center; width:100%; padding:65px 0 70px; }
+.workflow h1 { margin:0; font-family:"Bodoni Moda",serif; font-size:clamp(3rem,7vw,5rem); font-weight:700; line-height:1.1; }
+.workflow .eyebrow { margin:0 0 20px; }
+.workflow .intro { max-width:780px; margin:30px auto 0; font-size:clamp(1rem,2vw,1.15rem); line-height:1.7; }
+.workflow-map { position:relative; width:min(820px,100%); height:650px; margin:80px auto 0; }
+.workflow-center { position:absolute; top:50%; left:50%; width:220px; min-height:140px; padding:28px 22px; display:flex; flex-direction:column; justify-content:center; gap:10px; transform:translate(-50%,-50%); border:1px solid var(--wf-accent); border-radius:50%; background:var(--paper,#F8F5F0); z-index:2; }
+.workflow-center strong { font-family:"Bodoni Moda",serif; font-size:1.7rem; }
+.workflow-center span { color:var(--wf-muted); font-size:.78rem; line-height:1.5; }
+.workflow-node { position:absolute; width:210px; min-height:125px; padding:22px; display:flex; flex-direction:column; justify-content:center; gap:8px; border:1px solid var(--wf-border); border-radius:4px; background:#fff; color:var(--ink,#2A211D); text-align:left; box-shadow:0 12px 35px rgba(42,33,29,.08); }
+.workflow-node strong { font-family:"Bodoni Moda",serif; font-size:1.35rem; }
+.workflow-node small { color:var(--wf-muted); font-size:.82rem; line-height:1.45; }
+.node-explore { top:0; left:50%; transform:translateX(-50%); }
+.node-design { top:120px; right:0; }
+.node-iterate { bottom:70px; right:0; }
+.node-structure { bottom:0; left:50%; transform:translateX(-50%); }
+.node-document { bottom:70px; left:0; }
+.node-frame { top:120px; left:0; }
+.workflow-output { max-width:820px; margin:90px auto 0; padding-top:55px; border-top:1px solid var(--wf-border); }
+.workflow .section-label { margin:0 0 18px; font-size:.76rem; font-weight:600; letter-spacing:.22em; text-transform:uppercase; }
+.workflow-output h2 { max-width:680px; margin:0 auto; font-family:"Bodoni Moda",serif; font-size:clamp(2rem,4vw,3rem); line-height:1.2; }
+.workflow-output > p:not(.section-label):not(.output-result) { max-width:680px; margin:24px auto 0; line-height:1.7; }
+.output-flow { margin-top:38px; display:flex; justify-content:center; align-items:center; gap:22px; font-size:.82rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; }
+.workflow .output-result { margin:30px auto 0; color:var(--wf-muted); font-size:.9rem; }
+.workflow .back-link { margin:60px 0 0; }
+@media(max-width:800px) {
+.workflow { padding:40px 0 42px; }
+.workflow-map { height:auto; margin-top:50px; display:grid; grid-template-columns:1fr; gap:14px; }
+.workflow-center,.workflow-node { position:static; width:100%; min-height:auto; transform:none; }
+.workflow-center { margin-bottom:12px; border-radius:4px; }
+.workflow-output { margin-top:65px; padding-top:42px; }
+.output-flow { flex-direction:column; gap:12px; }
+.output-flow span[aria-hidden="true"] { transform:rotate(90deg); }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Aller au contenu</a>
+<header class="topbar">
+<div class="topbar-inner">
+<a class="brand" href="index.html" aria-label="Marlène Jedynak, accueil du portfolio"><span class="brand-symbol" aria-hidden="true">M</span><span><strong>Marlène Jedynak</strong><small>Narrative Design &amp; Writing</small></span></a>
+<nav class="desktop-nav" aria-label="Navigation principale">
+<a href="index.html">Accueil</a><a href="horey.html">Horey</a><a href="aetherfall.html">Aetherfall</a><a href="ghost-protocol-projet.html">Ghost Protocol</a><a href="etudes-de-cas.html">Études de cas</a><a href="methode.html">Méthode</a><a href="documentation.html">Documentation</a>
+</nav>
+<details class="mobile-nav"><summary>Menu</summary><nav aria-label="Navigation mobile"><a href="index.html">Accueil</a><a href="horey.html">Horey</a><a href="aetherfall.html">Aetherfall</a><a href="ghost-protocol-projet.html">Ghost Protocol</a><a href="etudes-de-cas.html">Études de cas</a><a href="methode.html">Méthode</a><a href="documentation.html">Documentation</a></nav></details>
+
+</div><div class="progress" aria-hidden="true"><span></span></div>
+</header>
+<main class="shell" id="main">
+<section class="workflow">
+<p class="eyebrow">Portfolio</p>
+<h1>Méthode de travail</h1>
+<p class="intro">Mon processus de conception est non linéaire. Selon le projet, je peux entrer par une idée, un besoin, une contrainte ou un problème, puis naviguer entre différents modes de travail jusqu’à faire émerger une réponse cohérente.</p>
+<section class="workflow-map" aria-label="Processus de conception non linéaire">
+<div class="workflow-center"><strong>Émergence</strong><span>idée · besoin · contrainte · problème</span></div>
+<div class="workflow-node node-explore"><strong>Explorer</strong><small>Rechercher, observer et proposer pour mieux comprendre.</small></div>
+<div class="workflow-node node-design"><strong>Concevoir</strong><small>Transformer une intention en proposition narrative.</small></div>
+<div class="workflow-node node-iterate"><strong>Itérer</strong><small>Ajuster, confronter et faire évoluer les propositions.</small></div>
+<div class="workflow-node node-structure"><strong>Structurer</strong><small>Organiser les informations et rendre leurs relations lisibles.</small></div>
+<div class="workflow-node node-document"><strong>Documenter</strong><small>Formaliser les décisions dans des supports exploitables.</small></div>
+<div class="workflow-node node-frame"><strong>Cadrer</strong><small>Préciser les objectifs, les contraintes et le périmètre.</small></div>
+</section>
+<section class="workflow-output">
+<p class="section-label">Du processus au livrable</p>
+<h2>Une pensée non linéaire, une information structurée.</h2>
+<p>Quelle que soit la porte d’entrée ou le chemin suivi, le résultat est organisé pour être compris, partagé et utilisé par une équipe.</p>
+<div class="output-flow" aria-label="Transformation vers le livrable"><span>Hiérarchiser</span><span aria-hidden="true">→</span><span>Formaliser</span><span aria-hidden="true">→</span><span>Transmettre</span></div>
+<p class="output-result">Information claire · structurée · exploitable</p>
+</section>
+<p class="back-link"><a href="index.html">← Retour au portfolio</a> · <a href="methode.html">Méthode &amp; supports →</a></p>
+</section>
+</main>
+<footer class="site-footer"><div class="footer-links"><a href="https://lalanternedelombre.fr/" target="_blank" rel="noopener noreferrer">Site</a><span aria-hidden="true">·</span><a href="mailto:sylviewozny@gmx.fr">E-mail</a><span aria-hidden="true">·</span><a href="https://www.linkedin.com/in/sylvie-wozny-b9975b333/" target="_blank" rel="noopener noreferrer">LinkedIn</a><span aria-hidden="true">·</span><a href="https://marlenejedynak.github.io/" target="_blank" rel="noopener noreferrer">GitHub</a></div><p class="footer-copyright">© 2026 Marlène Jedynak</p><a href="methode.html">Sources &amp; crédits visuels ↗</a></footer>
+</body>
+</html>
